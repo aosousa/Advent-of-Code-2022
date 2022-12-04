@@ -29,47 +29,40 @@ def priority(letter: str):
     
     return val
 
-def part_one():
+def part_one(input_list: list[str]):
     priority_sum = 0
 
-    with open(sys.argv[1], 'r', encoding='utf-8') as f:
-        lines = f.readlines()
+    for line in input_list:       
+        half_index = len(line) // 2
+        first_half, second_half = line[:half_index], line[half_index:]
+        
+        for i in first_half:
+            if i in second_half:
+                priority_sum += priority(i)
+                break
 
-        for line in lines:
-            stripped_line = line.strip()
-            
-            half_index = len(stripped_line) // 2
-            first_half, second_half = line[:half_index], line[half_index:]
-            
-            for i in first_half:
-                if i in second_half:
-                    priority_sum += priority(i)
-                    break
+    print('The sum of the priorities of the item types that appear in both compartments of the rucksack is: {}'.format(priority_sum))
 
-    print('The sum of the priorities of the item types that appear in both compartments of the rucksake is: {}'.format(priority_sum))
-
-def part_two():
+def part_two(input_list: list[str]):
     priority_sum = 0
 
-    with open(sys.argv[1], 'r', encoding='utf-8') as f:
-        lines = f.readlines()
-        i = 0
+    i = 0
+    while i < len(input_list):
+        for j in input_list[i]:
+            if j in input_list[i+1] and j in input_list[i+2]:
+                priority_sum += priority(j)
+                break
+        
+        i += 3
 
-        while i < len(lines):
-            for j in lines[i]:
-                if j in lines[i+1] and j in lines[i+2]:
-                    priority_sum += priority(j)
-                    break
-            
-            i += 3
-
-        print('The sum of the priorities of the badge item types is: {}'.format(priority_sum))
-
+    print('The sum of the priorities of the badge item types is: {}'.format(priority_sum))
 
 if __name__ == '__main__':
     if len(sys.argv) == 1:
         print('Missing file name argument!')
         exit()
 
-    part_one()
-    part_two()
+    with open(sys.argv[1], 'r', encoding='utf-8') as f:
+        lines = [line.strip() for line in f.readlines()]
+        part_one(lines)
+        part_two(lines)

@@ -95,4 +95,5 @@ def main():
     print('Total score according to the strategy guide is {}'.format(total_score))
     print('Total score according to the ultra top secret strategy guide is {}'.format(top_secret_score), end='')
 
-main()
+if __name__ == '__main__':
+    main()
