@@ -19,9 +19,8 @@ def main():
             second_section_id_range = [int(s) for s in section_ids[1].split('-')]
 
             a, b, c, d = first_section_id_range[0], first_section_id_range[1], second_section_id_range[0], second_section_id_range[1]
-            x, y = abs(a - b), abs(c - d)
 
-            if (x > y and a <= c and b >= d) or (x < y and a >= c and b <= d) or (x == y and a == c and b == d):
+            if (a <= c and b >= d) or (a >= c and b <= d):
                 assignment_pairs += 1
 
             for i in range(a, b+1):
