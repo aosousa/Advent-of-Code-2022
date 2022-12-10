@@ -19,17 +19,17 @@ def main():
         for line in lines:
             # https://peps.python.org/pep-0636
             match line.split():
-                case '$', 'cd', '/': 
+                case ['$', 'cd', '/']:
                     dir_under_inspection = ['/']
-                case '$', 'cd', '..': 
+                case ['$', 'cd', '..']:
                     dir_under_inspection.pop()
-                case '$', 'cd', x: 
+                case ['$', 'cd', x]:
                     dir_under_inspection.append(x+'/')
-                case '$', 'ls': 
+                case ['$', 'ls']:
                     continue
-                case 'dir', _: 
+                case ['dir', _]:
                     continue
-                case size, _:
+                case [size, _]:
                     for i in accumulate(dir_under_inspection):
                         directories[i] += int(size)
     
