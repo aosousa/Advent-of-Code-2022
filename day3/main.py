@@ -1,10 +1,12 @@
-#!/usr/bin/python
-
 import sys
+
+if len(sys.argv) == 1:
+    print('Missing file name argument!')
+    exit()
 
 priorities = {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9, 'j': 10, 'k': 11, 'l': 12, 'm': 13, 'n': 14, 'o': 15, 'p': 16, 'q': 17, 'r': 18, 's': 19, 't': 20, 'u': 21, 'v': 22, 'w': 23, 'x': 24, 'y': 25, 'z': 26}
 
-def priority(letter: str):
+def priority(letter: str) -> int:
     """Return the priority value of a letter according to the Advent of Code
     2022's day 3 strategy guide.
 
@@ -57,12 +59,7 @@ def part_two(input_list: list[str]):
 
     print('The sum of the priorities of the badge item types is: {}'.format(priority_sum))
 
-if __name__ == '__main__':
-    if len(sys.argv) == 1:
-        print('Missing file name argument!')
-        exit()
-
-    with open(sys.argv[1], 'r', encoding='utf-8') as f:
-        lines = [line.strip() for line in f.readlines()]
-        part_one(lines)
-        part_two(lines)
+with open(sys.argv[1], 'r', encoding='utf-8') as f:
+    lines = [line.strip() for line in f.readlines()]
+    part_one(lines)
+    part_two(lines)

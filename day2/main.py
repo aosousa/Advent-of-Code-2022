@@ -1,6 +1,8 @@
-#!/usr/bin/python
-
 import sys
+
+if len(sys.argv) == 1:
+    print('Missing file name argument!')
+    exit()
 
 def rock_paper_scissors_score(player_a_move: str, player_b_move: str) -> int:
     """Return the score of a rock-paper-scissors match according to the
@@ -77,23 +79,15 @@ def rock_paper_scissors_top_secret_score(player_a_move: str, player_b_move: str)
 
     return rock_paper_scissors_score(player_a_move, move_for_result)
 
-def main():
-    if len(sys.argv) == 1:
-        print('Missing file name argument!')
-        exit()
+total_score = 0
+top_secret_score = 0
 
-    total_score = 0
-    top_secret_score = 0
+with open(sys.argv[1], 'r', encoding='utf-8') as f:
+    lines = f.readlines()
 
-    with open(sys.argv[1], 'r', encoding='utf-8') as f:
-        lines = f.readlines()
+    for line in lines:
+        total_score += rock_paper_scissors_score(line[0], line[2])
+        top_secret_score += rock_paper_scissors_top_secret_score(line[0], line[2])
 
-        for line in lines:
-            total_score += rock_paper_scissors_score(line[0], line[2])
-            top_secret_score += rock_paper_scissors_top_secret_score(line[0], line[2])
-    
-    print('Total score according to the strategy guide is {}'.format(total_score))
-    print('Total score according to the ultra top secret strategy guide is {}'.format(top_secret_score), end='')
-
-if __name__ == '__main__':
-    main()
+print('Total score according to the strategy guide is {}'.format(total_score))
+print('Total score according to the ultra top secret strategy guide is {}'.format(top_secret_score), end='')
